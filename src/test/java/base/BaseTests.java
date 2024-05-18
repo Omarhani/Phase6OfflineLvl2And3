@@ -6,14 +6,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import pages.HomePage;
 import reader.ReadDataFromJson;
+import utils.ScreenRecorderUtil;
+import utils.UtilsTests;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Method;
 
 public class BaseTests {
 
@@ -23,6 +25,8 @@ public class BaseTests {
 
     private ChromeOptions chromeOptions;
     private FirefoxOptions firefoxOptions;
+
+    UtilsTests utilsTests;
 
     @Parameters("browser")
     @BeforeClass
@@ -49,9 +53,18 @@ public class BaseTests {
         }
     }
     @BeforeMethod
-    public void goHome() throws FileNotFoundException {
+    public void goHome(Method method) throws Exception {
 
         driver.get(dataModel().URL);
+        ScreenRecorderUtil.startRecord(method.getName());
+    }
+
+    @AfterMethod
+    public void afterMethod(Method method, ITestResult result) throws Exception {
+        utilsTests = new UtilsTests(driver);
+        utilsTests.takeScreenShot(method);
+        ScreenRecorderUtil.stopRecord();
+        utilsTests.setStatus(method,result);
     }
     @AfterClass
     public void tearDown(){
@@ -59,5 +72,15 @@ public class BaseTests {
     }
     protected DataModel dataModel() throws FileNotFoundException {
         return dataModel = new ReadDataFromJson().readJsonFile();
+    }
+    @BeforeSuite
+    public void beforeSuite(){
+        utilsTests= new UtilsTests(driver);
+        utilsTests.createReport();
+    }
+    @AfterSuite
+    public void afterSuite(){
+        utilsTests= new UtilsTests(driver);
+        utilsTests.flushReport();
     }
 }

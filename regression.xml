@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="regression test suite" parallel="tests" thread-count="2">
-    <test name="chrome" parallel="classes" thread-count="3">
+<suite name="regression test suite" >
+    <test name="chrome">
         <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="login.LoginTests"/>
@@ -18,7 +18,7 @@
             </class>
         </classes>
     </test>
-    <test name="firefox" parallel="classes" thread-count="2">
+    <test name="firefox">
         <parameter name="browser" value="firefox"></parameter>
         <classes>
             <class name="login.LoginTests2">
