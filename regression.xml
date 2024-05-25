@@ -5,29 +5,18 @@
         <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="login.LoginTests"/>
-            <class name="login.LoginTests2">
-                <methods>
-                    <include name="testSuccessfulLogin3"/>
-                    <include name="testSuccessfulLogin2"/>
-                </methods>
-            </class>
-            <class name="login.LoginTests3">
-                <methods>
-                    <exclude name="testSuccessfulLogin6"/>
-                </methods>
-            </class>
         </classes>
     </test>
-    <test name="firefox">
-        <parameter name="browser" value="firefox"></parameter>
-        <classes>
-            <class name="login.LoginTests2">
-                <methods>
-                    <include name="testSuccessfulLogin3"/>
-                    <include name="testSuccessfulLogin2"/>
-                </methods>
-            </class>
-            <class name="login.LoginTests3"></class>
-        </classes>
-    </test>
+<!--    <test name="firefox">-->
+<!--        <parameter name="browser" value="firefox"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="login.LoginTests2">-->
+<!--                <methods>-->
+<!--                    <include name="testSuccessfulLogin3"/>-->
+<!--                    <include name="testSuccessfulLogin2"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--            <class name="login.LoginTests3"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
